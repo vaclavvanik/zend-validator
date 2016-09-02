@@ -48,7 +48,7 @@ class Callback extends AbstractValidator
      */
     public function __construct($options = null)
     {
-        if (is_callable($options)) {
+        if (is_callable($options) || is_string($options)) {
             $options = ['callback' => $options];
         }
 
@@ -74,6 +74,10 @@ class Callback extends AbstractValidator
      */
     public function setCallback($callback)
     {
+        if (is_string($callback) && class_exists($callback)) {
+            $callback = new $callback();
+        }
+
         if (!is_callable($callback)) {
             throw new Exception\InvalidArgumentException('Invalid callback given');
         }

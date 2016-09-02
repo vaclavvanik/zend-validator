@@ -123,6 +123,26 @@ if ($valid->isValid($input)) {
 }
 ```
 
+AS of PHP 5.5 you can use ::class resolution for given callback class.
+
+```php
+class MyClass
+{
+    public function __invoke($value)
+    {
+        // some validation
+        return true;
+    }
+}
+
+$valid = new Zend\Validator\Callback(MyClass::class);
+if ($valid->isValid($input)) {
+    // input appears to be valid
+} else {
+    // input is invalid
+}
+```
+
 ## Adding options
 
 `Zend\Validator\Callback` also allows the usage of options which are provided as

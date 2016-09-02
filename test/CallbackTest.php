@@ -36,6 +36,12 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($valid->isValid('test'));
     }
 
+    public function testStringClassCallback()
+    {
+        $valid = new Callback(self::class);
+        $this->assertTrue($valid->isValid('test'));
+    }
+
     public function testSettingDefaultOptionsAfterwards()
     {
         $valid = new Callback([$this, 'objectCallback']);
@@ -110,6 +116,11 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     }
 
     public static function staticCallback($value)
+    {
+        return true;
+    }
+
+    public function __invoke($value)
     {
         return true;
     }
